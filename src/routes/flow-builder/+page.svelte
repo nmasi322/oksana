@@ -10,6 +10,8 @@
 	import CreateFlowModal from '$lib/components/flow-builder/create-flow-modal.svelte';
 	import type { FlowKind } from '$lib/types/flow';
 	import type { PageProps } from './$types';
+	import { cn } from 'cn';
+	import { formatDate } from 'date-fns';
 
 	let { data }: PageProps = $props();
 
@@ -46,9 +48,9 @@
 	console.log({ data });
 </script>
 
-<div class="mx-auto max-w-3xl px-6 py-10">
+<div class="mx-auto w-full max-w-3xl px-6 py-10">
 	<div class="mb-6 flex items-center justify-between">
-		<h1 class="text-lg font-semibold">Flows</h1>
+		<h1 class="text-lg font-semibold text-muted">Flows</h1>
 		<Button onclick={() => (createOpen = true)}>
 			<PlusIcon data-icon="inline-start" />
 			New flow
@@ -85,7 +87,12 @@
 		<div class="flex flex-col gap-3">
 			{#each data.flows as flow (flow.id)}
 				<a href={resolve('/flow-builder/[id]', { id: flow.id })}>
-					<Card.Root class="transition-colors hover:border-primary/50">
+					<Card.Root
+						class={cn(
+							'min-w-sm transition-colors',
+							flow.status === 'published' ? 'hover:border-primary/20' : 'hover:border-secondary/20'
+						)}
+					>
 						<Card.Header>
 							<div class="flex items-center justify-between">
 								<Card.Title>{flow.name}</Card.Title>
@@ -94,7 +101,7 @@
 								</Badge>
 							</div>
 							<Card.Description>
-								{flow.kind} · updated {new Date(flow.updatedAt).toLocaleString()}
+								{flow.kind} · updated {formatDate(flow.updatedAt, 'do MMM yyyy, HH:mm')}
 							</Card.Description>
 						</Card.Header>
 					</Card.Root>
