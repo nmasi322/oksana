@@ -52,10 +52,10 @@
 	let { ref = $bindable(null), ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
 </script>
 
-<Sidebar.Root bind:ref class="border-e-0" {...restProps}>
+<Sidebar.Root bind:ref class="border-none" {...restProps}>
 	<Sidebar.Header>
 		<TeamSwitcher teams={data.teams} />
 		<NavMain items={data.navMain} />
 	</Sidebar.Header>
-	<Sidebar.Rail />
+	<!-- <Sidebar.Rail /> -->
 </Sidebar.Root>
