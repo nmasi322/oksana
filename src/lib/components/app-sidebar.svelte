@@ -57,5 +57,5 @@
 		<TeamSwitcher teams={data.teams} />
 		<NavMain items={data.navMain} />
 	</Sidebar.Header>
-	<!-- <Sidebar.Rail /> -->
+	<Sidebar.Rail />
 </Sidebar.Root>

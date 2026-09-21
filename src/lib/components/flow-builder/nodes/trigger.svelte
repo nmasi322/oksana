@@ -5,6 +5,8 @@
 	let { id, data }: NodeProps = $props();
 
 	let { updateNodeData } = useSvelteFlow();
+
+	let config = $derived((data.config as { text?: string } | undefined) ?? {});
 </script>
 
 <div class="w-64 rounded-lg border border-[#1E2024] bg-[#101113] shadow-lg shadow-black/20">
@@ -14,7 +16,9 @@
 		<div class="flex size-6 items-center justify-center rounded-md bg-amber-500/15 text-amber-400">
 			<NavigationArrowIcon size={14} weight="fill" />
 		</div>
-		<span class="text-xs font-medium tracking-wide text-amber-400 uppercase">Trigger</span>
+		<span class="text-xs font-medium tracking-wide text-amber-400 uppercase">
+			{(data.label as string) || 'Trigger'}
+		</span>
 	</div>
 
 	<div class="px-3 py-3">
@@ -25,9 +29,9 @@
 			id="trigger-text-{id}"
 			name="trigger-text"
 			placeholder="Optional trigger text"
-			value={data.text ?? ''}
+			value={config.text ?? ''}
 			oninput={(evt) => {
-				updateNodeData(id, { text: evt.currentTarget.value });
+				updateNodeData(id, { config: { ...config, text: evt.currentTarget.value } });
 			}}
 			class="nodrag w-full rounded-md border border-[#1E2024] bg-[#17181B] px-2.5 py-1.5 text-xs text-zinc-100 placeholder:text-zinc-600 focus:border-amber-500/50 focus:ring-1 focus:ring-amber-500/50 focus:outline-none"
 		/>

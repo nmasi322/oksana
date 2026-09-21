@@ -6,11 +6,13 @@
 
 	let { updateNodeData } = useSvelteFlow();
 
-	let value = $state((data.condition as string | undefined) ?? '');
-	let isDirty = $derived(value !== ((data.condition as string | undefined) ?? ''));
+	let config = $derived((data.config as { condition?: string } | undefined) ?? {});
+
+	let value = $state(config.condition ?? '');
+	let isDirty = $derived(value !== (config.condition ?? ''));
 
 	function save() {
-		updateNodeData(id, { condition: value.trim() });
+		updateNodeData(id, { config: { ...config, condition: value.trim() } });
 	}
 
 	function onkeydown(evt: KeyboardEvent) {
@@ -33,7 +35,9 @@
 		>
 			<GitBranchIcon size={14} weight="fill" />
 		</div>
-		<span class="text-xs font-medium tracking-wide text-violet-400 uppercase">Condition</span>
+		<span class="text-xs font-medium tracking-wide text-violet-400 uppercase">
+			{(data.label as string) || 'Condition'}
+		</span>
 	</div>
 
 	<div class="px-3 py-3">

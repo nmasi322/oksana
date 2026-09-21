@@ -54,6 +54,7 @@
 		"wrangler": "^4.97.0"
 	},
 	"dependencies": {
+		"@supabase/supabase-js": "^2.116.0",
 		"@xyflow/svelte": "^1.6.6"
 	}
 }
